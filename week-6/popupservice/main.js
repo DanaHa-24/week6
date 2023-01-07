@@ -1,6 +1,6 @@
 import PopupService from './popup.js';
 
-const popupService = PopupService();
+const popupService = new PopupService();
 
 document.getElementById('open-popup-button').addEventListener('click', () => {
   popupService.open(`

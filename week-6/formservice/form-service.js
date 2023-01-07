@@ -1,4 +1,4 @@
-const FormService = (formParentElement, onSubmit) => {
+    const FormService = (formParentElement, onSubmit) => {
     // initialize isValid to true
     let isValid = true;
   

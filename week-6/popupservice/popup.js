@@ -7,37 +7,49 @@ function PopupService() {
       close();
     }
 
+    // Create the overlay element
+    const overlayElement = document.createElement('div');
+    overlayElement.className = 'popup-overlay grey-background';
+    console.log(overlayElement.className);
+    document.body.appendChild(overlayElement);
+
     // Create the popup element
     const popupElement = document.createElement('div');
-    popupElement.innerHTML = popupBody;
+    popupElement.innerHTML = `
+      <button class="close-button">X</button>
+      ${popupBody}
+    `;
     popupElement.className = options.popupClassName || '';
-    const body = document.getElementById('body');
-    body.appendChild(popupElement);
+    document.body.appendChild(popupElement);
 
-    // Set the current popup to the new popup element
-    currentPopup = popupElement;
+    // Add a click event listener to the close button to close the popup
+    popupElement.querySelector('.close-button').addEventListener('click', close);
 
     // Close the popup when clicked outside
     if (options.isCloseByClickOutside) {
-      document.addEventListener('click', closeOnClickOutside);
+      overlayElement.addEventListener('click', closeOnClickOutside);
     }
+
+    // Set the current popup to the new popup element
+    currentPopup = popupElement;
   }
 
   function close() {
     if (currentPopup) {
-      // Remove the popup element from the DOM
+      // Remove the popup element and the overlay element from the DOM
       document.body.removeChild(currentPopup);
+      document.body.removeChild(document.querySelector('.popup-overlay'));
 
       // Reset the current popup to null
       currentPopup = null;
 
-      // Remove the click event listener
+      // Remove the click event listeners
       document.removeEventListener('click', closeOnClickOutside);
     }
   }
 
   function closeOnClickOutside(event) {
-    if (!currentPopup.contains(event.target)) {
+    if (event.target === event.currentTarget) {
       close();
     }
   }
