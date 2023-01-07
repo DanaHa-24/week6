@@ -5,7 +5,7 @@ const FormService = (formParentElement, onSubmit) => {
     // create a map of input types to their respective validation functions
     const inputValidations = {
       text: input => input.value.length >= 2,
-      number: input => !isNaN(input.value),
+      number: input => /^(0|[1-9]\d|1[0-1]\d|120)$/,
       email: input => /^\S+@\S+\.\S+$/.test(input.value)
     };
   

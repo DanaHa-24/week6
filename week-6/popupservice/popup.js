@@ -11,7 +11,8 @@ function PopupService() {
     const popupElement = document.createElement('div');
     popupElement.innerHTML = popupBody;
     popupElement.className = options.popupClassName || '';
-    document.body.appendChild(popupElement);
+    const body = document.getElementById('body');
+    body.appendChild(popupElement);
 
     // Set the current popup to the new popup element
     currentPopup = popupElement;
